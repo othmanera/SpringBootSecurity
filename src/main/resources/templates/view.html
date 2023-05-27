@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org"
+xmlns:layout="www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="header.html">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+<div layout:fragment="header">
+	<div class="container mt-4">
+		<div class="card">
+			<div class="card-header">
+				<form class="input-group mb-3" method="get">
+					<input type="text" name="criteria" class="form-control"
+						placeholder="Criteria">
+					<button type="submit" class="btn btn-primary">Search</button>
+				</form>
+			</div>
+			<table class="table table-dark block">
+				<thead>
+					<th>ID</th>
+					<th>Designation</th>
+					<th>Prix</th>
+					<th>Quantité</th>
+					<th th:if="${#authorization.expression('hasRole(''admin'')')}">Actions</th>
+				</thead>
+				<tbody>
+					<tr th:each="p:${listP}">
+						<td th:text="${p.ref}"></td>
+						<td th:text="${p.design}"></td>
+						<td th:text="${p.prix}"></td>
+						<td th:text="${p.qte}"></td>
+						
+						<td th:if="${#authorization.expression('hasRole(''admin'')')}"><a onClick="return confirm('Voulez-vous supprimer le produit?')" class="btn btn-danger"
+							th:href="@{/delete(ID=${p.ref},criteria=${mc})}">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<nav aria-label="Page navigation example">
+				<ul class="pagination">
+					<li class="page-item">
+						<a class="page-link" th:href="@{/list(page=${currentPage>0?currentPage-1:nbrTotalPage-1})}"> 
+							<span>&laquo;</span>
+						</a>
+					</li>
+					
+					<li th:class="${currentPage==i?'page-item active': 'page-item'}"
+						th:each="i:${#numbers.sequence(currentPage,(currentPage+3<nbrTotalPage-1?currentPage+3:nbrTotalPage-1))}">
+						<a
+							class="page-link" th:text="${i}"
+							th:href="@{/list(page=${i},criteria=${mc})}"
+						>
+						</a>
+					</li>
+					
+					<li class="page-item">
+						<a class="page-link" th:href="@{/list(page=${currentPage<nbrTotalPage-1?currentPage+1:0})}"> 
+							<span>&raquo;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+</body>
+</html>

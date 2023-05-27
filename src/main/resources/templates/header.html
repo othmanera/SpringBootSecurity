@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org" 
+xmlns:layout="www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+<script type="text/javascript" src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<title>Insert title here</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+      
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Produits
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" th:href="@{/formAjout}">Ajouter</a></li>
+            <li><a class="dropdown-item" th:href="@{/list}">Lister</a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+        
+        
+        <li class="nav-item dropdown d-flex">
+          <a class="nav-link dropdown-toggle" th:text="${#authentication.name}" data-bs-toggle="dropdown" aria-expanded="false">
+            user
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" th:href="@{/formAjout}">profile</a></li>
+            <li><a class="dropdown-item" th:href="@{/logout}">logout</a></li>
+            <li><hr class="dropdown-divider"></li>
+          </ul>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div layout:fragment="header">
+</div>
+
+</body>
+</html>
